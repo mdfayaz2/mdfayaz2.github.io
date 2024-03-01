@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+ 
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin:auto;
+            justify-content: space-around;
+            width:100%;
+            padding: 10px;
+            text-align: center;
+        }
+        div .container {
+            height: 350px;
+            width: 350px;
+            border: 5px solid silver;
+            padding:30px;  
+            margin:10px; 
+            border-radius: 15px;
+                   
+        }
+        div.container:hover{
+            border: 5px solid black;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div><img  src="cartlogo.jfif" height="50px" width="60px" style="float: inline-end;"><br>
+    <center><h1>DRY FRUITS SHOP</h1></center></div><hr>
+    <marquee direction="left"><b>*** SPECIAL OFFER ONLY FOR TODAY ***</b> </marquee><hr>
+    <div id="products" class="main"></div>
+    <hr>
+    <h1>MY CART</h1>
+    <hr>
+
+    <div id="mycarts"></div>
+    <script>
+        let product=[
+            {name:"Almonds",price:700,Description: " 100% Premium Quality",image:"11.jfif"},
+            {name:"Cashew",price:750,Description: " 100% Premium Quality",image:"22.jfif"},
+            {name:"Raisins",price:300,Description: " 100% Premium Quality",image:"33.jfif" },
+            {name:"Pista",price:1000,Description: " 100% Premium Quality",image:"44.jfif"},
+            {name:"Walnuts",price:1200,Description: " 100% Premium Quality",image:"55.jfif"},
+            {name:"Dry Dates",price:600,Description: " 100% Premium Quality",image:"66.jfif"}        
+        ];
+        let msg="";
+        product.forEach((value,key)=> {
+            
+            msg=msg+` <div class="container">
+                <div><img width=200px height=200px src=${value.image}></div>
+                <div style="font-size:30px;"><b>${value.name}</b></div><br>
+                <div><b>${value.Description}</b></div><br>
+                <div><b><del>₹ ${value.price+300}</del>&nbsp;&nbsp;<span style="font-size:20px;">₹ ${value.price}</span>/-</b></div><br>
+                <div><button style="height:36px; width:128px;" id="b${key}" onclick="addToCard(${key})">Add To Cart</button></div>
+                </div>`;
+        });
+        products.innerHTML=msg;
+        let cart=[]
+        function addToCard(key){
+            if(cart[key]==null){
+                // cart[key]=product[key];
+                cart[key]=JSON.parse(JSON.stringify(product[key]));
+                cart[key].quantity=1;
+            }
+            else{
+                cart[key].quantity=cart[key].quantity+=1;
+            }
+            console.log(cart)
+            reloadcart();
+        }
+        function reloadcart(){
+        let txt=""
+        cart.forEach((value,key)=>{
+            if(value != null)
+        txt=txt + `<div><img width=150px height=150px src="${value.image}"/></div>
+            <div><b>${value.name}<b></div>
+            <div><b>${value.price.toLocaleString()}<b></div><br>
+            <div>
+                <button onclick="changeQuantity(${key},${value.quantity-1})">-</button>
+                ${value.quantity}
+                <button onclick="changeQuantity(${key},${value.quantity+1}),reloadcart()">+</button>
+            </div>`;
+        })
+        mycarts.innerHTML= txt;
+    };
+    function changeQuantity(key,quantity){
+        if(quantity==0){
+            delete cart[key];
+        }
+        else{
+            cart[key].quantity=quantity;
+            cart[key].price=quantity*product[key].price;
+        }
+        reloadcart();
+    }
+    </script>
+</body>
+</html>
