@@ -6,13 +6,11 @@
     <title>Document</title>
     <style>
         .container {
-            background: linear-gradient(rgb(244, 1, 187),pink,lightpink);
-            height: 100vh;
-            width: 100%;
-            padding-top: 30px;
+            background-image: url(love1.jpg);
+            background-size: cover;
+            /* padding-top: 30px; */
         }
         .container1{
-            background:linear-gradient(grey,lightpink);
             height: 150px;
             width: 90%;
             color: black;
@@ -22,8 +20,7 @@
             border-radius: 10px;
         }
         #container2{
-            background-color: lightpink;
-            height: 500px;
+            height: 600px;
             width: 70%;
             margin: auto;
             padding-bottom: 5px;
@@ -38,8 +35,18 @@
         }
         button {
             height: 30px;
-            width: 300px;
-            background-color: lightpink;
+            width: 200px;
+            background-color: rgb(240, 168, 168);
+            border: 3px solid black;
+            border-radius: 5px;
+            color: black;
+            font-weight: bolder;
+
+        }
+        .button1 {
+            height: 30px;
+            width:120px;
+            background-color: rgb(240, 168, 168);
             border: 3px solid black;
             border-radius: 5px;
             color: black;
@@ -58,20 +65,26 @@
         </div>
         <div id="container2">
             <h1 style="padding-top: 10px;">SIGN UP</h1><br>
+            <h3>FULL NAME</h3>
+            <input type="text" placeholder="Enter Your Full Name" id="f" required><br>
+            <h3>DATE OF BIRTH</h3>
+            <input type="date" required><br>
             <h3>EMAIL ADDRESS</h3>
             <input type="email" placeholder="Set Your Email" id="e" required><br>
             <h3>PASSWORD</h3>
             <input type="password" placeholder="Enter Your Password" id="p" required><br><br><br>
             <button onclick="f1()">CREATE AN ACCOUNT</button><br><br>
-            <p>Already Existing User ? &nbsp;&nbsp;<button onclick="f2()">LOGIN</button></p>
+            <p>Already Existing User ? &nbsp;&nbsp;<button class="button1" onclick="f2()">LOGIN</button></p>
         </div>
     
     </div>
     <script>
         const f1=()=>{
-            email=e.value
-            password=p.value
-            alert("CREATED THE ACCOUNT")
+            naam=f.value;
+            naam1=naam.toUpperCase();
+            email=e.value;
+            password=p.value;
+            alert(`Hej ${naam1}. YOUR ACCOUNT IS SUCCESSFULLY CREATED.`)
         }
         const f2=()=>{
             container2.innerHTML=""
@@ -86,7 +99,7 @@
         }
         const f3=()=>{
             if(email==g.value && password==p2.value) {
-                alert("LOGGED IN SUCCESSFUL")
+                alert(`Hej ${naam1}. YOUR LOGIN IS SUCCESSFULLY.`)
             }else{
                 alert("INVALID CREDENTIALS")
             }
