@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery_Indicator</title>
+    <link rel="stylesheet" href="./battery.css">
+</head>
+<body>
+    <section class="battery">
+        <div class="battery__card">
+            <div class="battery__data">
+                <p class="battery__text">Battery Level</p>
+                <h1 class="battery__percentage">20%</h1>
+                <p class="battery__status">Low Battery</p>
+            </div>
+        </div>
+        <div class="battery__pill">
+            <div class="battery__level">
+                <div class="battery__liquid"></div>
+            </div>
+        </div>
+    </section>
+    <script>
+
+Battery()
+
+function Battery(){
+    const batteryLiquid = document.querySelector('.battery__liquid'),
+          batteryStatus = document.querySelector('.battery__status'),
+          batteryPercentage = document.querySelector('.battery__percentage')
+    
+    navigator.getBattery().then((m) =>{
+        updateBattery = () =>{
+            let level = Math.floor(m.level *100)
+            batteryPercentage.innerText = level+ '%'
+
+           
+            batteryLiquid.style.height = `${parseInt(m.level *100)}%`
+           console.log(m)
+            if(level == 100){ 
+                batteryStatus.innerHTML = `Full battery`
+                batteryLiquid.style.height = '103%' 
+            }
+            else if(level <= 20 && !m.charging){ //If it is not conncet cable it display low battery on output
+                batteryStatus.innerText = `Low battery `
+            }
+            else if(m.charging){ 
+                batteryStatus.innerHTML = `Charging...`
+            }
+            else{ 
+                batteryStatus.innerHTML = 'remaining'
+            }
+        }
+        updateBattery()
+
+        m.addEventListener( () => {updateBattery()})
+        m.addEventListener( () => {updateBattery()})
+
+    })
+}
+
+    </script>
+</body>
+</html>
